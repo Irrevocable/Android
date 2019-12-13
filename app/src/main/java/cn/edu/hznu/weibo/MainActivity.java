@@ -1,20 +1,15 @@
 package cn.edu.hznu.weibo;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 public class MainActivity extends AppCompatActivity implements  View.OnClickListener{
     private ImageView mine;
@@ -36,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         viewPager.addOnPageChangeListener(new MyPagerChangeListener());
         //把Fragment添加到List集合里面
         list=new ArrayList<>();
+        list.add(new HomeFragment());
         list.add(new MineFragment());
         adapter=new TabFragmentPagerAdapter(getSupportFragmentManager(),list);
         viewPager.setAdapter(adapter);
@@ -48,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     private void InitView() {
         mine=findViewById(R.id.mine);
         home=findViewById(R.id.home);
+        home.setImageResource(R.drawable.homes);
         weibo=findViewById(R.id.weibo);
         viewPager=findViewById(R.id.viewPager);
     }
@@ -61,7 +58,18 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         @Override
         public void onPageSelected(int position) {
-
+            switch (position){
+                case 0:
+                    home.setImageResource(R.drawable.homes);
+                    mine.setImageResource(R.drawable.mine);
+                    weibo.setImageResource(R.drawable.weibo);
+                    break;
+                case 1:
+                    mine.setImageResource(R.drawable.mines);
+                    home.setImageResource(R.drawable.home);
+                    weibo.setImageResource(R.drawable.weibo);
+                    break;
+            }
         }
 
         @Override
@@ -76,11 +84,13 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 mine.setImageResource(R.drawable.mines);
                 home.setImageResource(R.drawable.home);
                 weibo.setImageResource(R.drawable.weibo);
+                viewPager.setCurrentItem(1);
                 break;
             case R.id.home:
                 home.setImageResource(R.drawable.homes);
                 mine.setImageResource(R.drawable.mine);
                 weibo.setImageResource(R.drawable.weibo);
+                viewPager.setCurrentItem(0);
                 break;
             case R.id.weibo:
                 weibo.setImageResource(R.drawable.weibos);
