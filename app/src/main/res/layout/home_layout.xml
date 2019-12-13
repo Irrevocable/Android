@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/margin">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="185dp"
+        android:background="@drawable/bg">
 
         <cn.edu.hznu.weibo.UI.CircleImageView
             android:id="@+id/avatar"
@@ -38,32 +40,32 @@
 
             <TextView
                 android:text="关注"
-                android:textColor="#3D3D3D"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/concernNum"
                 android:text="60"
-                android:textColor="#3D3D3D"
+                android:textColor="@color/black"
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:text="|"
-                android:textColor="#3D3D3D"
+                android:textColor="@color/black"
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:text="粉丝"
-                android:textColor="#3D3D3D"
+                android:textColor="@color/black"
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/fansNum"
                 android:text="10"
-                android:textColor="#3D3D3D"
+                android:textColor="@color/black"
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -71,10 +73,18 @@
         <TextView
             android:layout_marginTop="5dp"
             android:text="简介:暂无简介"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:drawableRight="@drawable/pencil"/>
     </LinearLayout>
+    <TextView
+        android:text="全部微博"
+        android:textSize="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
