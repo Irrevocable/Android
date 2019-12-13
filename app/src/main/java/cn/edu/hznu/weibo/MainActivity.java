@@ -31,11 +31,12 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         viewPager.addOnPageChangeListener(new MyPagerChangeListener());
         //把Fragment添加到List集合里面
         list=new ArrayList<>();
+        list.add(new WeiBoFragment());
         list.add(new HomeFragment());
         list.add(new MineFragment());
         adapter=new TabFragmentPagerAdapter(getSupportFragmentManager(),list);
         viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(0);//显示第一个页面
+        viewPager.setCurrentItem(1);//显示第一个页面
     }
 
     /**
@@ -60,15 +61,21 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         public void onPageSelected(int position) {
             switch (position){
                 case 0:
+                    weibo.setImageResource(R.drawable.weibos);
+                    home.setImageResource(R.drawable.home);
+                    mine.setImageResource(R.drawable.mine);
+                    break;
+                case 1:
                     home.setImageResource(R.drawable.homes);
                     mine.setImageResource(R.drawable.mine);
                     weibo.setImageResource(R.drawable.weibo);
                     break;
-                case 1:
+                case 2:
                     mine.setImageResource(R.drawable.mines);
                     home.setImageResource(R.drawable.home);
                     weibo.setImageResource(R.drawable.weibo);
                     break;
+
             }
         }
 
@@ -84,18 +91,19 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 mine.setImageResource(R.drawable.mines);
                 home.setImageResource(R.drawable.home);
                 weibo.setImageResource(R.drawable.weibo);
-                viewPager.setCurrentItem(1);
+                viewPager.setCurrentItem(2);
                 break;
             case R.id.home:
                 home.setImageResource(R.drawable.homes);
                 mine.setImageResource(R.drawable.mine);
                 weibo.setImageResource(R.drawable.weibo);
-                viewPager.setCurrentItem(0);
+                viewPager.setCurrentItem(1);
                 break;
             case R.id.weibo:
                 weibo.setImageResource(R.drawable.weibos);
                 home.setImageResource(R.drawable.home);
                 mine.setImageResource(R.drawable.mine);
+                viewPager.setCurrentItem(0);
                 break;
 
         }

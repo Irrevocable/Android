@@ -5,30 +5,30 @@
     android:background="@drawable/border_bottom">
 
     <ImageView
-        android:id="@+id/addFriend"
+        android:id="@+id/camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="15dp"
-        android:background="@drawable/friend" />
+        android:background="@drawable/camera" />
 
     <TextView
-        android:id="@+id/mine_title"
+        android:id="@+id/weibo_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="我"
+        android:text="微博"
         android:textColor="@color/black"
         android:textSize="20sp" />
 
     <ImageView
-        android:id="@+id/setting"
+        android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginRight="15dp"
         android:layout_alignParentRight="true"
-        android:background="@drawable/setting"/>
+        android:background="@drawable/add"/>
 
 </RelativeLayout>
