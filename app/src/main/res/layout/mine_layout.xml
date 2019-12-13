@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/mine_head_border">
+            android:background="@drawable/border_top">
 
             <cn.edu.hznu.weibo.UI.CircleImageView
                 android:id="@+id/avatar"
@@ -54,7 +54,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/mine_head_border">
+            android:background="@drawable/border_tb">
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/mine_head_border">
+            android:background="@drawable/border_tb">
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
@@ -193,11 +193,144 @@
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border_tb">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="经常访问"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:text="我最近经常访问的主页"
+                    android:textColor="#3D3D3D"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginBottom="10dp">
+                        <cn.edu.hznu.weibo.UI.CircleImageView
+                            android:id="@+id/undetermined_user1"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="5dp"
+                            android:src="@drawable/user1"/>
+                        <TextView
+                            android:text="用户1"
+                            android:textColor="#3D3D3D"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
 
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginBottom="10dp">
+                        <cn.edu.hznu.weibo.UI.CircleImageView
+                            android:id="@+id/undetermined_user2"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="5dp"
+                            android:src="@drawable/user2"/>
+                        <TextView
+                            android:text="用户2"
+                            android:textColor="#3D3D3D"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginBottom="10dp">
+                        <cn.edu.hznu.weibo.UI.CircleImageView
+                            android:id="@+id/undetermined_user3"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="5dp"
+                            android:src="@drawable/user3"/>
+                        <TextView
+                            android:text="用户3"
+                            android:textColor="#3D3D3D"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
+        <TextView
+            android:text="查看全部"
+            android:textColor="@color/dodgerblue"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/border_bottom"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border_tb">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/draft"/>
+            <TextView
+                android:text="草稿箱"
+                android:textColor="#3D3D3D"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="30dp"/>
+            <ImageView
+                android:background="@drawable/arrow_right"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>
