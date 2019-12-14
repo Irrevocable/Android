@@ -1,8 +1,9 @@
 package cn.edu.hznu.weibo;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -18,12 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import okhttp3.FormBody;
@@ -56,27 +56,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        ActionBar actionBar = getSupportActionBar();
-//        if (actionBar != null) {
-//            actionBar.hide();
-//        }
+        setStatusBarColor(LoginActivity.this,R.color.background);//设置状态栏颜色
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//设置状态栏字体
         setContentView(R.layout.activity_login);
-        accountLayout = findViewById(R.id.account_layout);
-        msgLayout = findViewById(R.id.msg_layout);
-        user = findViewById(R.id.user_input);
-        pwd = findViewById(R.id.pwd_input);
-        loginBtn = findViewById(R.id.login_btn);
+        //初始化控件
+        initView();
+        //设置点击事件
         loginBtn.setOnClickListener(LoginActivity.this);
-        msgBtn = findViewById(R.id.msg_btn);
         msgBtn.setOnClickListener(this);
-        phone = findViewById(R.id.phone_input);
-        validateCode = findViewById(R.id.validateCode);
-        getMsg = findViewById(R.id.getMsg);
         getMsg.setOnClickListener(this);
-        msgLoginBtn = findViewById(R.id.msgLogin_btn);
         msgLoginBtn.setOnClickListener(this);
-        accountBtn = findViewById(R.id.account_btn);
         accountBtn.setOnClickListener(this);
 
         handler = new Handler(new Handler.Callback() {
@@ -151,7 +140,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
     }
+    /**
+     * 初始化控件
+     */
+    public void initView(){
+        accountLayout = findViewById(R.id.account_layout);
+        msgLayout = findViewById(R.id.msg_layout);
+        user = findViewById(R.id.user_input);
+        pwd = findViewById(R.id.pwd_input);
+        loginBtn = findViewById(R.id.login_btn);
+        msgBtn = findViewById(R.id.msg_btn);
+        phone = findViewById(R.id.phone_input);
+        validateCode = findViewById(R.id.validateCode);
+        getMsg = findViewById(R.id.getMsg);
+        msgLoginBtn = findViewById(R.id.msgLogin_btn);
+        accountBtn = findViewById(R.id.account_btn);
+    }
 
+    public static void setStatusBarColor(Activity activity, int colorId) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = activity.getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(activity.getResources().getColor(colorId));
+        }
+//        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            //使用SystemBarTint库使4.4版本状态栏变色，需要先将状态栏设置为透明
+//            transparencyBar(activity);
+//            SystemBarTintManager tintManager = new SystemBarTintManager(activity);
+//            tintManager.setStatusBarTintEnabled(true);
+//            tintManager.setStatusBarTintResource(colorId);
+//        }
+    }
     @Override
     public void onClick(View v) {
         String number = phone.getText().toString();

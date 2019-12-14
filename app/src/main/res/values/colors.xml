@@ -152,5 +152,5 @@
     <color name="background">#fafafa</color><!-- 背景色 -->
     <color name="title">#F5F5F5</color>
     <color name="margin">#EEEEEE</color>
-    <color name="intro">#A2A2A2</color>
+    <color name="intro">#A2A2A2</color><!-- 简介 -->
 </resources>
