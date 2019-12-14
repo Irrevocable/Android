@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
     
-    <androidx.viewpager.widget.ViewPager
+    <cn.edu.hznu.weibo.Fragment.NoScrollViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

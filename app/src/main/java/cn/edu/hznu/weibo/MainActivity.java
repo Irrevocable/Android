@@ -9,9 +9,9 @@ import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import cn.edu.hznu.weibo.Fragment.HomeFragment;
 import cn.edu.hznu.weibo.Fragment.MineFragment;
+import cn.edu.hznu.weibo.Fragment.NoScrollViewPager;
 import cn.edu.hznu.weibo.Fragment.TabFragmentPagerAdapter;
 import cn.edu.hznu.weibo.Fragment.WeiBoFragment;
 
@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     private ImageView mine;
     private ImageView home;
     private ImageView weibo;
-    private ViewPager viewPager;
+    private NoScrollViewPager viewPager;
     private List<Fragment>list;
     private TabFragmentPagerAdapter adapter;
     @Override
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         mine.setOnClickListener(this);
         home.setOnClickListener(this);
         weibo.setOnClickListener(this);
-        viewPager.addOnPageChangeListener(new MyPagerChangeListener());
+//        viewPager.addOnPageChangeListener(new MyPagerChangeListener());
         //把Fragment添加到List集合里面
         list=new ArrayList<>();
         list.add(new WeiBoFragment());
@@ -51,43 +51,9 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         home=(ImageView)findViewById(R.id.home);
         home.setImageResource(R.drawable.homes);
         weibo=(ImageView)findViewById(R.id.weibo);
-        viewPager=(ViewPager)findViewById(R.id.viewPager);
+        viewPager=(NoScrollViewPager)findViewById(R.id.viewPager);
     }
 
-    public class MyPagerChangeListener implements ViewPager.OnPageChangeListener {
-
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-        }
-
-        @Override
-        public void onPageSelected(int position) {
-            switch (position){
-                case 0:
-                    weibo.setImageResource(R.drawable.weibos);
-                    home.setImageResource(R.drawable.home);
-                    mine.setImageResource(R.drawable.mine);
-                    break;
-                case 1:
-                    home.setImageResource(R.drawable.homes);
-                    mine.setImageResource(R.drawable.mine);
-                    weibo.setImageResource(R.drawable.weibo);
-                    break;
-                case 2:
-                    mine.setImageResource(R.drawable.mines);
-                    home.setImageResource(R.drawable.home);
-                    weibo.setImageResource(R.drawable.weibo);
-                    break;
-
-            }
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-
-        }
-    }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
