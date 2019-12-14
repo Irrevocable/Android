@@ -10,6 +10,10 @@ import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
+import cn.edu.hznu.weibo.Fragment.HomeFragment;
+import cn.edu.hznu.weibo.Fragment.MineFragment;
+import cn.edu.hznu.weibo.Fragment.TabFragmentPagerAdapter;
+import cn.edu.hznu.weibo.Fragment.WeiBoFragment;
 
 public class MainActivity extends AppCompatActivity implements  View.OnClickListener{
     private ImageView mine;
@@ -43,11 +47,11 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
      * 初始化控件
      */
     private void InitView() {
-        mine=findViewById(R.id.mine);
-        home=findViewById(R.id.home);
+        mine=(ImageView)findViewById(R.id.mine);
+        home=(ImageView)findViewById(R.id.home);
         home.setImageResource(R.drawable.homes);
-        weibo=findViewById(R.id.weibo);
-        viewPager=findViewById(R.id.viewPager);
+        weibo=(ImageView)findViewById(R.id.weibo);
+        viewPager=(ViewPager)findViewById(R.id.viewPager);
     }
 
     public class MyPagerChangeListener implements ViewPager.OnPageChangeListener {

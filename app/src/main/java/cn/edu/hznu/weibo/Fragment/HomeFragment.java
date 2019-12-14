@@ -1,4 +1,4 @@
-package cn.edu.hznu.weibo;
+package cn.edu.hznu.weibo.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import cn.edu.hznu.weibo.R;
 
-public class MineFragment extends Fragment {
+public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.mine_layout,null);
+        View view=inflater.inflate(R.layout.home_layout,null);
         return view;
     }
-
 }

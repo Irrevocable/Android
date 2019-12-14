@@ -9,6 +9,7 @@
         android:layout_height="60dp"
         android:background="@color/white">
         <cn.edu.hznu.weibo.UI.CircleImageView
+            android:id="@+id/avatarImg"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center_vertical"
@@ -21,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/username"
                 android:text="用户名"
                 android:textSize="18dp"
                 android:textColor="@color/orange"
@@ -32,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/time"
                     android:text="12-13  0:00"
                     android:textSize="13dp"
                     android:textColor="#3D3D3D"
@@ -54,6 +57,7 @@
         android:layout_height="235dp"
         android:background="@color/white">
         <TextView
+            android:id="@+id/weibo_content"
             android:text="安卓好难，你妈的为什么？"
             android:textColor="@color/black"
             android:layout_marginLeft="15dp"
@@ -77,6 +81,7 @@
             android:layout_height="25dp"
             android:layout_weight="1">
             <ImageView
+                android:id="@+id/weibo_img"
                 android:background="@drawable/transmit"
                 android:layout_gravity="center"
                 android:layout_centerInParent="true"
