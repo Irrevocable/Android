@@ -7,6 +7,16 @@ public class Info {
     private String content;
     private int imgId;
 
+    public Info() {
+    }
+
+    public Info(String name, int avatarId, String time, String content) {
+        this.name = name;
+        this.avatarId = avatarId;
+        this.time = time;
+        this.content = content;
+    }
+
     public Info(String name, int avatarId, String time, String content, int imgId) {
         this.name = name;
         this.avatarId = avatarId;
