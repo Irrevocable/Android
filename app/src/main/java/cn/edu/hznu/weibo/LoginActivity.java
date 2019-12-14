@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
@@ -181,7 +182,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String username = user.getText().toString();
                 String password = pwd.getText().toString();
                 AlertDialog.Builder accountDialog = new AlertDialog.Builder(LoginActivity.this);
-                if (username.equals("") || password.equals("")) {
+                if (TextUtils.isEmpty(username)|| TextUtils.isEmpty(password)) {
                     accountDialog.setIcon(R.drawable.error)
                             .setTitle("错误")
                             .setMessage("用户名或密码不能为空!")
@@ -215,7 +216,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.getMsg:
                 AlertDialog.Builder phoneDialog = new AlertDialog.Builder(LoginActivity.this);
-                if (number.equals("")) {
+                if (TextUtils.isEmpty(number)) {
                     phoneDialog.setIcon(R.drawable.error)
                             .setTitle("错误")
                             .setMessage("手机号不能为空!")
@@ -257,7 +258,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.msgLogin_btn:
                 String code = validateCode.getText().toString();
                 //文本框为空
-                if (number.equals("") || code.equals("")) {
+                if (TextUtils.isEmpty(number)|| TextUtils.isEmpty(code)) {
                     AlertDialog.Builder msgDialog = new AlertDialog.Builder(LoginActivity.this);
                     msgDialog.setIcon(R.drawable.error)
                             .setTitle("错误")
