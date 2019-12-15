@@ -1,4 +1,4 @@
-package cn.edu.hznu.weibo.Fragment;
+package cn.edu.hznu.weibo.Fragment.Home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

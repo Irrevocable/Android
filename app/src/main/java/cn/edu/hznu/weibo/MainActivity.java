@@ -10,11 +10,11 @@ import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import cn.edu.hznu.weibo.Fragment.HomeFragment;
-import cn.edu.hznu.weibo.Fragment.MineFragment;
+import cn.edu.hznu.weibo.Fragment.Home.HomeFragment;
+import cn.edu.hznu.weibo.Fragment.Mine.MineFragment;
 import cn.edu.hznu.weibo.Fragment.NoScrollViewPager;
 import cn.edu.hznu.weibo.Fragment.TabFragmentPagerAdapter;
-import cn.edu.hznu.weibo.Fragment.WeiBoFragment;
+import cn.edu.hznu.weibo.Fragment.Weibo.WeiBoFragment;
 import cn.edu.hznu.weibo.UI.StatusBarUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {

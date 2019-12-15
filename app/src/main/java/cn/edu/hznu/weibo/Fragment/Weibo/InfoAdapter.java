@@ -1,4 +1,4 @@
-package cn.edu.hznu.weibo;
+package cn.edu.hznu.weibo.Fragment.Weibo;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import cn.edu.hznu.weibo.Bean.Info;
+import cn.edu.hznu.weibo.R;
 
 public class InfoAdapter extends ArrayAdapter<Info> {
     private int resourceId;
@@ -48,7 +49,8 @@ public class InfoAdapter extends ArrayAdapter<Info> {
         viewHolder.img.setImageResource(info.getImgId());
         return view;
     }
-    class ViewHolder{
+
+    static  class ViewHolder{
         ImageView avatarImg;
         TextView name;
         TextView time;
