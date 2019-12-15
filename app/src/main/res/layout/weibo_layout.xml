@@ -12,6 +12,8 @@
         <ListView
             android:id="@+id/weibo_listView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:divider="@color/margin"
+            android:dividerHeight="8dp" />
     </LinearLayout>
 </LinearLayout>
