@@ -34,7 +34,7 @@
                 <TextView
                     android:id="@+id/nickName"
                     android:text="用户名"
-                    android:textSize="18dp"
+                    android:textSize="18sp"
                     android:textColor="@color/black"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
                 <TextView
                     android:id="@+id/user_intro"
                     android:text="简介:暂无介绍"
-                    android:textSize="13dp"
+                    android:textSize="13sp"
                     android:textColor="@color/intro"
                     android:layout_marginTop="6dp"
                     android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
                     android:id="@+id/weiboNum"
                     android:text="60"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="18sp"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_marginTop="5dp"
@@ -87,7 +87,7 @@
                     android:id="@+id/concernNum"
                     android:text="29"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="18sp"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_marginTop="5dp"
@@ -112,7 +112,7 @@
                     android:id="@+id/fansNum"
                     android:text="10"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="18sp"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_marginTop="5dp"
@@ -203,7 +203,7 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:text="经常访问"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="15dp"
                     android:layout_width="wrap_content"

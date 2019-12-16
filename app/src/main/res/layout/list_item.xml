@@ -22,7 +22,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/username"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:textColor="@color/orange"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
@@ -33,14 +33,14 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/time"
-                    android:textSize="13dp"
+                    android:textSize="13sp"
                     android:textColor="#3D3D3D"
                     android:layout_marginTop="6dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:text="  来自Android客户端"
-                    android:textSize="13dp"
+                    android:textSize="13sp"
                     android:textColor="#3D3D3D"
                     android:layout_marginTop="6dp"
                     android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
         android:background="@color/white">
         <TextView
             android:id="@+id/weibo_content"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textColor="@color/black"
             android:layout_marginLeft="15dp"
             android:layout_width="match_parent"
@@ -82,6 +82,7 @@
             android:layout_height="35dp"
             android:layout_weight="1">
             <ImageView
+                android:id="@+id/transmit"
                 android:background="@drawable/transmit"
                 android:layout_gravity="center"
                 android:layout_centerInParent="true"
@@ -93,6 +94,7 @@
             android:layout_height="35dp"
             android:layout_weight="1">
             <ImageView
+                android:id="@+id/comment"
                 android:background="@drawable/comment"
                 android:layout_gravity="center"
                 android:layout_centerInParent="true"
@@ -104,6 +106,7 @@
             android:layout_height="35dp"
             android:layout_weight="1">
             <ImageView
+                android:id="@+id/zan"
                 android:background="@drawable/zan"
                 android:layout_gravity="center"
                 android:layout_centerInParent="true"
@@ -115,6 +118,7 @@
             android:layout_height="35dp"
             android:layout_weight="1">
             <ImageView
+                android:id="@+id/collect"
                 android:background="@drawable/collect"
                 android:layout_gravity="center"
                 android:layout_centerInParent="true"

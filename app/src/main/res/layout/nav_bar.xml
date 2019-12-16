@@ -24,7 +24,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="微博"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -48,7 +48,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="主页"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -71,6 +71,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="我的"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>
