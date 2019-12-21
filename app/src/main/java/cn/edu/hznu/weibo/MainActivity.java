@@ -15,7 +15,7 @@ import cn.edu.hznu.weibo.Fragment.Mine.MineFragment;
 import cn.edu.hznu.weibo.Fragment.NoScrollViewPager;
 import cn.edu.hznu.weibo.Fragment.TabFragmentPagerAdapter;
 import cn.edu.hznu.weibo.Fragment.Weibo.WeiBoFragment;
-import cn.edu.hznu.weibo.UI.StatusBarUtils;
+import cn.edu.hznu.weibo.Utils.StatusBarUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView mine;

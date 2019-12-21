@@ -37,6 +37,10 @@ public class InfoAdapter extends ArrayAdapter<Info> {
             viewHolder.time=(TextView)view.findViewById(R.id.time);
             viewHolder.content=(TextView)view.findViewById(R.id.weibo_content);
             viewHolder.img=(ImageView)view.findViewById(R.id.weibo_img);
+            viewHolder.transmit=(ImageView)view.findViewById(R.id.transmit);
+            viewHolder.comment=(ImageView)view.findViewById(R.id.comment);
+            viewHolder.zan=(ImageView)view.findViewById(R.id.zan);
+            viewHolder.collect=(ImageView)view.findViewById(R.id.collect);
             view.setTag(viewHolder);
         } else {
             view = convertView;
@@ -50,11 +54,15 @@ public class InfoAdapter extends ArrayAdapter<Info> {
         return view;
     }
 
-    static  class ViewHolder{
+    static class ViewHolder{
         ImageView avatarImg;
         TextView name;
         TextView time;
         TextView content;
         ImageView img;
+        ImageView transmit;
+        ImageView comment;
+        ImageView zan;
+        ImageView collect;
     }
 }

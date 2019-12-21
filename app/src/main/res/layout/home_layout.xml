@@ -9,7 +9,7 @@
         android:layout_height="185dp"
         android:background="@drawable/bg">
 
-        <cn.edu.hznu.weibo.UI.CircleImageView
+        <cn.edu.hznu.weibo.Utils.CircleImageView
             android:id="@+id/avatar"
             android:layout_width="75dp"
             android:layout_height="75dp"

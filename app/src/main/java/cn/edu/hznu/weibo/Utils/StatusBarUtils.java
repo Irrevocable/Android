@@ -1,4 +1,4 @@
-package cn.edu.hznu.weibo.UI;
+package cn.edu.hznu.weibo.Utils;
 
 import android.app.Activity;
 import android.content.Context;

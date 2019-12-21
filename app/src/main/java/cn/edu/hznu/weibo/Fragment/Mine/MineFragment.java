@@ -1,21 +1,31 @@
 package cn.edu.hznu.weibo.Fragment.Mine;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.util.Log;
+import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import cn.edu.hznu.weibo.Fragment.BaseFragment;
 import cn.edu.hznu.weibo.R;
 
-public class MineFragment extends Fragment {
-    @Nullable
+public class MineFragment extends BaseFragment {
+    private static final String TAG="MineFragment";
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.mine_layout,null);
-        return view;
+    protected int setContentView() {
+        return R.layout.mine_layout;
     }
 
+    @Override
+    protected void lazyLoad() {
+        final ImageView setting=(ImageView)super.findViewById(R.id.setting);
+        setting.setOnClickListener((v->{
+            Log.d(TAG, "设置被点击了 ");
+        }));
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
 }

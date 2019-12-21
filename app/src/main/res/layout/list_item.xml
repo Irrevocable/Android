@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="68dp"
         android:background="@color/white">
-        <cn.edu.hznu.weibo.UI.CircleImageView
+        <cn.edu.hznu.weibo.Utils.CircleImageView
             android:id="@+id/avatarImg"
             android:layout_width="50dp"
             android:layout_height="50dp"
