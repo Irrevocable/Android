@@ -1,4 +1,4 @@
-package cn.edu.hznu.weibo.Utils;
+package cn.edu.hznu.weibo.Utils.UI;
 
 import android.content.Context;
 import android.graphics.Bitmap;

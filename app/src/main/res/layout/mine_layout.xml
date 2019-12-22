@@ -17,14 +17,13 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/border_top">
 
-            <cn.edu.hznu.weibo.Utils.CircleImageView
+            <cn.edu.hznu.weibo.Utils.UI.CircleImageView
                 android:id="@+id/avatar"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/user"/>
+                android:layout_marginRight="20dp" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -33,7 +32,6 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/nickName"
-                    android:text="用户名"
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:layout_gravity="center_vertical"
@@ -41,7 +39,6 @@
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/user_intro"
-                    android:text="简介:暂无介绍"
                     android:textSize="13sp"
                     android:textColor="@color/intro"
                     android:layout_marginTop="6dp"
@@ -62,7 +59,6 @@
                 android:layout_weight="1">
                 <TextView
                     android:id="@+id/weiboNum"
-                    android:text="60"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:layout_gravity="center"
@@ -226,7 +222,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginBottom="10dp">
-                        <cn.edu.hznu.weibo.Utils.CircleImageView
+                        <cn.edu.hznu.weibo.Utils.UI.CircleImageView
                             android:id="@+id/undetermined_user1"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
@@ -250,7 +246,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginBottom="10dp">
-                        <cn.edu.hznu.weibo.Utils.CircleImageView
+                        <cn.edu.hznu.weibo.Utils.UI.CircleImageView
                             android:id="@+id/undetermined_user2"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
@@ -274,7 +270,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginBottom="10dp">
-                        <cn.edu.hznu.weibo.Utils.CircleImageView
+                        <cn.edu.hznu.weibo.Utils.UI.CircleImageView
                             android:id="@+id/undetermined_user3"
                             android:layout_width="60dp"
                             android:layout_height="60dp"

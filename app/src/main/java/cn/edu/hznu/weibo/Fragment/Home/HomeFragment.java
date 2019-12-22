@@ -12,8 +12,13 @@ import cn.edu.hznu.weibo.Fragment.BaseFragment;
 import cn.edu.hznu.weibo.R;
 
 public class HomeFragment extends BaseFragment {
+    private static final String TAG="HomeFragment";
     private String info;
     private UserInfo userInfo;
+
+    public HomeFragment() {
+    }
+
     public HomeFragment(String info) {
         this.info = info;
     }
@@ -32,8 +37,8 @@ public class HomeFragment extends BaseFragment {
         final TextView nickName=(TextView)super.findViewById(R.id.nickName);
         final ImageView avatar=(ImageView)super.findViewById(R.id.avatar);
         final TextView intro=(TextView)super.findViewById(R.id.user_intro);
-        nickName.setText(this.userInfo.getNickName());
-        Glide.with(getContext()).load("http://10.0.2.2:8080/weibo/"+this.userInfo.getImg()).into(avatar);
+        nickName.setText(userInfo.getNickName());
+        Glide.with(getContext()).load("http://10.0.2.2:8080/weibo/"+userInfo.getImg()).into(avatar);
         if(TextUtils.isEmpty(userInfo.getIntroduce())){
             intro.setText("简介:暂无简介");
         }else{
