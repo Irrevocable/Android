@@ -75,10 +75,9 @@ public class HtmlFromUtils {
 //                            source = "http://www.dujiaoshou.com/" + source;//source就是img标签中src属性值，相对路径的此处可以对其进行处理添加头部
                             drawable = getImageFromNetwork(source);
                             if (drawable != null) {
-
                                 int w = drawable.getIntrinsicWidth();
                                 int h = drawable.getIntrinsicHeight();
-                                System.out.println(source+"\twidth:\t"+w+"\theight:\t"+h);
+//                                System.out.println(source+"\twidth:\t"+w+"\theight:\t"+h);
                                 //对图片大小进行等比例放大 此处宽高可自行调整
                                 if (w < h && h > 0) {
                                     float scale = (400.0f / h);
@@ -88,9 +87,9 @@ public class HtmlFromUtils {
                                     float scale = (1000.0f / w);
                                     w = (int) (scale * w);
                                     h = (int) (scale * h);
-                                }else if(w==h){
-                                    w*=10;
-                                    h*=10;
+                                }else  if(w==h){
+                                    w=32;
+                                    h=32;
                                 }
                                 drawable.setBounds(0, 0, w, h);
                             } else if (drawable == null) {

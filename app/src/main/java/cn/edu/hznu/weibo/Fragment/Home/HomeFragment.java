@@ -7,14 +7,20 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import cn.edu.hznu.weibo.Bean.UserInfo;
+import cn.edu.hznu.weibo.Bean.WeiBo;
 import cn.edu.hznu.weibo.Fragment.BaseFragment;
+import cn.edu.hznu.weibo.InfoAdapter;
 import cn.edu.hznu.weibo.MainActivity;
 import cn.edu.hznu.weibo.R;
 import okhttp3.FormBody;
@@ -26,12 +32,15 @@ import okhttp3.Response;
 public class HomeFragment extends BaseFragment {
     private static final String TAG="HomeFragment";
     public static final int UPDATE_TEXT = 0;
+    public static final int CHECK_SUCCESS=1;
     private String info;
     private UserInfo userInfo;
     private TextView nickName;
     private TextView intro;
     private ImageView avatar;
+    private ListView listView;
     private Handler handler;
+    private List<WeiBo>weiBos;
     private MainActivity mainActivity;
     public HomeFragment() {
     }
@@ -58,6 +67,12 @@ public class HomeFragment extends BaseFragment {
                         } else {
                             intro.setText("简介:" + userInfo.getIntroduce());
                         }
+                        break;
+                    case CHECK_SUCCESS:
+                        weiBos=new Gson().fromJson(msg.getData().get("message").toString(),new TypeToken<List<WeiBo>>(){}.getType());
+                        InfoAdapter adapter=new InfoAdapter(getContext(),R.layout.list_item,weiBos);
+                        adapter.notifyDataSetChanged();
+                        listView.setAdapter(adapter);
                 }
                 return false;
             }
@@ -72,10 +87,14 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
+        listView=(ListView)super.findViewById(R.id.home_listView);
         nickName=(TextView)super.findViewById(R.id.nickName);
         avatar=(ImageView)super.findViewById(R.id.avatar);
         intro=(TextView)super.findViewById(R.id.user_intro);
         getInfo();
+
+        sendCheckWeiBosRequest();
+
         intro.setOnClickListener((v->{
             final MainActivity mainActivity=(MainActivity)getActivity();
             mainActivity.setAndroidNativeLightStatusBar(getActivity(),true);
@@ -83,6 +102,36 @@ public class HomeFragment extends BaseFragment {
             mainActivity.setFragmentSkipInterface(viewPager -> viewPager.setCurrentItem(3));
             mainActivity.skipToFragment();
         }));
+    }
+
+    private void sendCheckWeiBosRequest() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    RequestBody requestBody = new FormBody.Builder().add("oper", "check")
+                            .add("name", userInfo.getNickName())
+                            .add("uid",String.valueOf(userInfo.getUid()))
+                            .build();
+                    Request request = new Request.Builder()
+                            .url("http://10.0.2.2:8080/weibo/deal")
+                            .post(requestBody)
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    Message message = new Message();
+                    message.what = CHECK_SUCCESS;
+                    Bundle bundle = new Bundle();
+                    bundle.putString("message", responseData);
+                    message.setData(bundle);
+                    handler.sendMessage(message);
+                    Log.d(TAG, responseData);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     private void sendQueryInfoRequest() {
