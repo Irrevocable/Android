@@ -9,7 +9,7 @@
         android:layout_height="185dp"
         android:background="@drawable/bg">
 
-        <cn.edu.hznu.weibo.Utils.CircleImageView
+        <cn.edu.hznu.weibo.Utils.UI.CircleImageView
             android:id="@+id/avatar"
             android:layout_width="75dp"
             android:layout_height="75dp"
@@ -18,8 +18,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
-            android:gravity="center|center_horizontal"
-            android:src="@drawable/user" />
+            android:gravity="center|center_horizontal" />
 
         <TextView
             android:id="@+id/nickName"
@@ -27,7 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="用户名"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_marginTop="5dp"/>
@@ -45,7 +43,7 @@
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/concernNum"
-                android:text="60"
+                android:text="29"
                 android:textColor="@color/black"
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
@@ -71,8 +69,8 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <TextView
+            android:id="@+id/user_intro"
             android:layout_marginTop="5dp"
-            android:text="简介:暂无简介"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
