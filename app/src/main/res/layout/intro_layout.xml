@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/margin">
+    <include layout="@layout/tb_intro"></include>
+    <EditText
+        android:id="@+id/intro_input"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:inputType="textMultiLine"
+        android:gravity="left|top"
+        android:hint="介绍一下你自己"
+        android:background="@color/white"/>
+</LinearLayout>

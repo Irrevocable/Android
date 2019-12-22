@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 startActivity(intent);
                                 finish();
                             }
-                        }, 1500);
+                        }, 1000);
                         break;
                     case SEND_SUCCESS:
                         toast=Toast.makeText(LoginActivity.this, "验证码已发送，请注意查看手机短信.", Toast.LENGTH_SHORT);
