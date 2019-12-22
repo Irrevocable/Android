@@ -94,10 +94,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     case LOGIN_SUCCESS:
                         toast=Toast.makeText(LoginActivity.this, "登录成功!", Toast.LENGTH_SHORT);
                         toast.show();
+                        String info=msg.getData().get("info").toString();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("info",info);
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
@@ -287,7 +289,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 try {
                     OkHttpClient client = new OkHttpClient();
                     RequestBody requestBody = new FormBody.Builder().add("phone", phone.getText().toString())
-                            .add("msg", validateCode.getText().toString()).build();
+                            .add("msg", validateCode.getText().toString())
+                            .add("flag","2")
+                            .build();
                     Request request = new Request.Builder()
                             .url("http://10.0.2.2:8080/weibo/login")
                             .post(requestBody)
@@ -296,11 +300,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     String responseData = response.body().string();
                     Log.d("msgLogin", responseData);
                     Message message = new Message();
-                    if(responseData.equals("success")){
-                        message.what=LOGIN_SUCCESS;
+                    if(responseData.equals("error")){
+                        message.what=LOGIN_ERROR;
                         handler.sendMessage(message);
                     }else{
-                        message.what=LOGIN_ERROR;
+                        message.what=LOGIN_SUCCESS;
+                        Bundle bundle = new Bundle();
+                        bundle.putString("info", responseData);
+                        message.setData(bundle);
                         handler.sendMessage(message);
                     }
                 } catch (IOException e) {
@@ -351,7 +358,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 try {
                     OkHttpClient client = new OkHttpClient();
                     RequestBody requestBody = new FormBody.Builder().add("user", user.getText().toString())
-                            .add("pwd", pwd.getText().toString()).build();
+                            .add("pwd", pwd.getText().toString())
+                            .add("flag","2")
+                            .build();
                     Request request = new Request.Builder()
                             .url("http://10.0.2.2:8080/weibo/login")
                             .post(requestBody)
@@ -360,13 +369,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     String responseData = response.body().string();
                     Log.d("accountLogin", responseData);
                     Message message = new Message();
-                    if (responseData.equals("success")) {
-                        //进入MainActivity
-                        message.what = LOGIN_SUCCESS;
-                        handler.sendMessage(message);
-                    } else {
+                    if (responseData.equals("fail")) {
                         //找不到该用户
                         message.what = LOGIN_FAIL;
+                        handler.sendMessage(message);
+                    } else {
+                        //进入MainActivity
+                        message.what = LOGIN_SUCCESS;
+                        Bundle bundle = new Bundle();
+                        bundle.putString("info", responseData);
+                        message.setData(bundle);
                         handler.sendMessage(message);
                     }
                 } catch (IOException e) {

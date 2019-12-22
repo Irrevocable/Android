@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="68dp"
         android:background="@color/white">
-        <cn.edu.hznu.weibo.Utils.CircleImageView
+        <cn.edu.hznu.weibo.Utils.UI.CircleImageView
             android:id="@+id/avatarImg"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -58,14 +58,12 @@
             android:textSize="16sp"
             android:textColor="@color/black"
             android:layout_marginLeft="15dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <ImageView
             android:id="@+id/weibo_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="275dp"
-            android:maxHeight="250dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:layout_marginTop="8dp"
