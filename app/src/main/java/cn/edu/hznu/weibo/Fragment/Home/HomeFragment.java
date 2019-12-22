@@ -41,9 +41,7 @@ public class HomeFragment extends BaseFragment {
     private ListView listView;
     private Handler handler;
     private List<WeiBo>weiBos;
-    private MainActivity mainActivity;
-    public HomeFragment() {
-    }
+    public HomeFragment() { }
 
     public HomeFragment(String info) {
         this.info = info;
