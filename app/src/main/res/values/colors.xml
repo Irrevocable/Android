@@ -153,4 +153,5 @@
     <color name="title">#F5F5F5</color>
     <color name="margin">#EEEEEE</color>
     <color name="intro">#A2A2A2</color><!-- 简介 -->
+    <color name="list_divider_line">#EFEFF3</color>
 </resources>

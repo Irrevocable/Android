@@ -6,6 +6,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -15,7 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import cn.edu.hznu.weibo.Bean.UserInfo;
 import cn.edu.hznu.weibo.Fragment.BaseFragment;
+import cn.edu.hznu.weibo.MainActivity;
 import cn.edu.hznu.weibo.R;
+import cn.edu.hznu.weibo.Utils.UI.BottomDialog;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -79,9 +82,22 @@ public class MineFragment extends BaseFragment {
         intro=(TextView)super.findViewById(R.id.user_intro);
         num=(TextView)super.findViewById(R.id.weiboNum);
         getInfo();
+        final LinearLayout toHome=(LinearLayout)super.findViewById(R.id.toHome);
+        toHome.setOnClickListener(v -> {
+            final MainActivity mainActivity = (MainActivity) getActivity();
+            mainActivity.setAndroidNativeLightStatusBar(getActivity(), false);
+            mainActivity.setFragmentSkipInterface(viewPager -> {
+                viewPager.setCurrentItem(1);
+            });
+            mainActivity.skipToFragment();
+            mainActivity.findViewById(R.id.nav_bar).findViewById(R.id.home).performClick();
+        });
         setting.setOnClickListener((v -> {
-            Log.d(TAG, "设置被点击了 ");
+            BottomDialog.showSettingDialog(getActivity());
         }));
+        avatar.setOnClickListener(v -> {
+            BottomDialog.showPhotoDialog(getActivity());
+        });
     }
 
     @Override
