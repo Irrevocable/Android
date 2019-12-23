@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item android:id="@+id/weibo_query"
+        android:title="查微博"
+        app:showAsAction="never"/>
+    <item android:id="@+id/weibo_new"
+        android:title="写微博"/>
+</menu>

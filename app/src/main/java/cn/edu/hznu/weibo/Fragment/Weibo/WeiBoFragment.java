@@ -1,11 +1,14 @@
 package cn.edu.hznu.weibo.Fragment.Weibo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -19,7 +22,9 @@ import androidx.annotation.Nullable;
 import cn.edu.hznu.weibo.Bean.WeiBo;
 import cn.edu.hznu.weibo.Fragment.BaseFragment;
 import cn.edu.hznu.weibo.InfoAdapter;
+import cn.edu.hznu.weibo.QueryActivity;
 import cn.edu.hznu.weibo.R;
+import cn.edu.hznu.weibo.WriteActivity;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -28,6 +33,7 @@ import okhttp3.Response;
 
 public class WeiBoFragment extends BaseFragment {
     public static  final int QUERY_SUCCESS=0;
+    public  static Gson gson=new Gson();
     private static final String TAG="weibo";
     private List<WeiBo> weiBoList =new ArrayList<>();
     private ListView  listView;
@@ -47,8 +53,7 @@ public class WeiBoFragment extends BaseFragment {
                 switch (msg.what){
                     case QUERY_SUCCESS:
                         //查询数据库所有微博数据然后加载进去
-                        Gson gson=new Gson();
-                        List<WeiBo> weiBoList=gson.fromJson(msg.getData().get("message").toString(),new TypeToken<List<WeiBo>>(){}.getType());
+                        weiBoList=gson.fromJson(msg.getData().get("message").toString(),new TypeToken<List<WeiBo>>(){}.getType());
                         InfoAdapter adapter = new InfoAdapter(getContext(), R.layout.list_item, weiBoList);
                         listView.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
@@ -69,8 +74,47 @@ public class WeiBoFragment extends BaseFragment {
          listView=(ListView) super.findViewById(R.id.weibo_listView);
 //        发送数据查询请求
         selectAllWeiBoRequest();
-    }
+        final ImageView write=(ImageView)super.findViewById(R.id.weibo_write);
+        write.setOnClickListener(v -> {
+            showPopupMenu(write);
+        });
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            WeiBo weiBo=weiBoList.get(position);
 
+        });
+    }
+    private void showPopupMenu(View view) {
+        // View当前PopupMenu显示的相对View的位置
+        PopupMenu popupMenu = new PopupMenu(getContext(), view);
+        // menu布局
+        popupMenu.getMenuInflater().inflate(R.menu.main, popupMenu.getMenu());
+        // menu的item点击事件
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()){
+                    case R.id.weibo_query:
+                        intent=new Intent(getActivity(), QueryActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.weibo_new:
+                        intent=new Intent(getActivity(), WriteActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                return false;
+            }
+        });
+        // PopupMenu关闭事件
+        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+            @Override
+            public void onDismiss(PopupMenu menu) {
+//                Toast.makeText(getContext(), "关闭PopupMenu", Toast.LENGTH_SHORT).show();
+            }
+        });
+        popupMenu.show();
+    }
     private void selectAllWeiBoRequest() {
         new Thread(new Runnable() {
             @Override
@@ -90,7 +134,7 @@ public class WeiBoFragment extends BaseFragment {
                     bundle.putString("message", responseData);
                     message.setData(bundle);
                     handler.sendMessage(message);
-                    Log.d("weiboList", responseData);
+//                    Log.d("weiboList", responseData);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

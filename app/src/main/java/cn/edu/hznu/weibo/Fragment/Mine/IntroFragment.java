@@ -28,6 +28,7 @@ import okhttp3.Response;
 public class IntroFragment extends BaseFragment {
     public static final int QUERY_SUCCESS=0;
     public static final int REVISE_SUCCESS=1;
+    public static Gson gson=new Gson();
     private String info;
     private UserInfo userInfo;
     private EditText intro_input;
@@ -41,7 +42,6 @@ public class IntroFragment extends BaseFragment {
     }
 
     public void getInfo() {
-        Gson gson = new Gson();
         userInfo = gson.fromJson(this.info, UserInfo.class);
         SendQueryIntroRequest();
         handler=new Handler(new Handler.Callback() {
@@ -49,7 +49,6 @@ public class IntroFragment extends BaseFragment {
             public boolean handleMessage(@NonNull Message msg) {
                 switch (msg.what){
                     case QUERY_SUCCESS:
-                        Gson gson=new Gson();
                         UserInfo info=gson.fromJson(msg.getData().get("data").toString(),UserInfo.class);
                         if (!TextUtils.isEmpty(info.getIntroduce())) {
                             intro_input.setText(info.getIntroduce());

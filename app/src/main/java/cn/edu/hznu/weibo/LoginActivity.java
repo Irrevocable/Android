@@ -367,7 +367,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
-                    Log.d("accountLogin", responseData);
+//                    Log.d("accountLogin", responseData);
                     Message message = new Message();
                     if (responseData.equals("fail")) {
                         //找不到该用户

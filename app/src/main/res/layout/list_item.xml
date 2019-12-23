@@ -109,6 +109,15 @@
                 android:layout_centerInParent="true"
                 android:layout_width="20dp"
                 android:layout_height="20dp"/>
+            <TextView
+                android:id="@+id/favorNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/zan"
+                android:layout_marginLeft="4dp"
+                android:textColor="#333"
+                android:textSize="16sp" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"

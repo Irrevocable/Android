@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +27,7 @@ import okhttp3.Response;
 public class MineFragment extends BaseFragment {
     private static final String TAG = "MineFragment";
     public static final int UPDATE_TEXT = 0;
+    public  static Gson gson = new Gson();
     private String info;
     private UserInfo userInfo;
     private ImageView setting;
@@ -44,7 +44,6 @@ public class MineFragment extends BaseFragment {
     }
 
     public void getInfo() {
-        Gson gson = new Gson();
         userInfo = gson.fromJson(this.info, UserInfo.class);
         sendQueryInfoRequest();
         handler=new Handler(new Handler.Callback() {
@@ -52,7 +51,6 @@ public class MineFragment extends BaseFragment {
             public boolean handleMessage(@NonNull Message msg) {
                 switch (msg.what) {
                     case UPDATE_TEXT:
-                        Gson gson = new Gson();
                         userInfo =gson.fromJson(msg.getData().get("info").toString(),UserInfo.class);
                         nickName.setText(userInfo.getNickName());
                         Glide.with(getContext()).load("http://10.0.2.2:8080/weibo/"+userInfo.getImg()).into(avatar);
@@ -119,7 +117,7 @@ public class MineFragment extends BaseFragment {
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
-                    Log.d(TAG, responseData);
+//                    Log.d(TAG, responseData);
                     Message message=new Message();
                     message.what=UPDATE_TEXT;
                     Bundle bundle = new Bundle();

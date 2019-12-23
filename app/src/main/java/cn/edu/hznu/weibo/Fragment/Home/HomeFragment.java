@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -37,6 +36,7 @@ public class HomeFragment extends BaseFragment {
     private UserInfo userInfo;
     private TextView nickName;
     private TextView intro;
+    private TextView home_weio;
     private ImageView avatar;
     private ListView listView;
     private Handler handler;
@@ -68,6 +68,7 @@ public class HomeFragment extends BaseFragment {
                         break;
                     case CHECK_SUCCESS:
                         weiBos=new Gson().fromJson(msg.getData().get("message").toString(),new TypeToken<List<WeiBo>>(){}.getType());
+                        home_weio.setText("全部微博("+weiBos.size()+")");
                         InfoAdapter adapter=new InfoAdapter(getContext(),R.layout.list_item,weiBos);
                         adapter.notifyDataSetChanged();
                         listView.setAdapter(adapter);
@@ -89,6 +90,7 @@ public class HomeFragment extends BaseFragment {
         nickName=(TextView)super.findViewById(R.id.nickName);
         avatar=(ImageView)super.findViewById(R.id.avatar);
         intro=(TextView)super.findViewById(R.id.user_intro);
+        home_weio=(TextView)super.findViewById(R.id.home_weibo);
         getInfo();
 
         sendCheckWeiBosRequest();
@@ -124,7 +126,7 @@ public class HomeFragment extends BaseFragment {
                     bundle.putString("message", responseData);
                     message.setData(bundle);
                     handler.sendMessage(message);
-                    Log.d(TAG, responseData);
+//                    Log.d(TAG, responseData);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -147,7 +149,7 @@ public class HomeFragment extends BaseFragment {
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
-                    Log.d(TAG, responseData);
+//                    Log.d(TAG, responseData);
                     Message message=new Message();
                     message.what=UPDATE_TEXT;
                     Bundle bundle = new Bundle();
