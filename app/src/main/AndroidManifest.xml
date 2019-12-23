@@ -15,7 +15,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
         </activity>
-        <activity android:name=".WriteActivity"></activity>
         <activity android:name=".QueryActivity"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -23,6 +22,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".EditorActivity">
         </activity>
     </application>
 

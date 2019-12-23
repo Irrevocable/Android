@@ -87,9 +87,10 @@ public class HtmlFromUtils {
                                     float scale = (1000.0f / w);
                                     w = (int) (scale * w);
                                     h = (int) (scale * h);
-                                }else  if(w==h){
-                                    w=32;
-                                    h=32;
+                                }else if(w==h&&w!=22){
+                                    float scale=(400.0f/h);
+                                    w=(int)(scale*w);
+                                    h=(int)(scale*h);
                                 }
                                 drawable.setBounds(0, 0, w, h);
                             } else if (drawable == null) {

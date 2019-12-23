@@ -10,11 +10,16 @@
         android:layout_weight="1"
         android:orientation="vertical"
         android:descendantFocusability="blocksDescendants">
-        <ListView
-            android:id="@+id/weibo_listView"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@color/margin"
-            android:dividerHeight="8dp" />
+            android:layout_height="match_parent"
+            android:id="@+id/srfl">
+            <ListView
+                android:id="@+id/weibo_listView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/margin"
+                android:dividerHeight="8dp" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
 </LinearLayout>

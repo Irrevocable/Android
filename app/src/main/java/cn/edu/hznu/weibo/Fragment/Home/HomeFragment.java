@@ -33,7 +33,7 @@ public class HomeFragment extends BaseFragment {
     public static final int UPDATE_TEXT = 0;
     public static final int CHECK_SUCCESS=1;
     private String info;
-    private UserInfo userInfo;
+    public static UserInfo userInfo;
     private TextView nickName;
     private TextView intro;
     private TextView home_weio;
