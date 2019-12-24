@@ -91,10 +91,10 @@ public class HomeFragment extends BaseFragment {
         avatar=(ImageView)super.findViewById(R.id.avatar);
         intro=(TextView)super.findViewById(R.id.user_intro);
         home_weio=(TextView)super.findViewById(R.id.home_weibo);
-        getInfo();
-
+        if(!isLoad){
+            getInfo();
+        }
         sendCheckWeiBosRequest();
-
         intro.setOnClickListener((v->{
             final MainActivity mainActivity=(MainActivity)getActivity();
             mainActivity.setAndroidNativeLightStatusBar(getActivity(),true);

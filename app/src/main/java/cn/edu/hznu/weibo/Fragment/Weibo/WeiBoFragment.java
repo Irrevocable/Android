@@ -89,7 +89,9 @@ public class WeiBoFragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
-        selectAllWeiBoRequest();
+        if(!isLoad){
+            selectAllWeiBoRequest();
+        }
         srfl=(SwipeRefreshLayout)super.findViewById(R.id.srfl);
         srfl.setSize(SwipeRefreshLayout.DEFAULT);
         //设置手势滑动监听器
