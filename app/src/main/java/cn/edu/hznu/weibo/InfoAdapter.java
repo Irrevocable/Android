@@ -2,17 +2,21 @@ package cn.edu.hznu.weibo;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -27,6 +31,8 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import cn.edu.hznu.weibo.Bean.Operation;
 import cn.edu.hznu.weibo.Bean.WeiBo;
+import cn.edu.hznu.weibo.Fragment.Home.HomeFragment;
+import cn.edu.hznu.weibo.Fragment.Weibo.WeiBoFragment;
 import cn.edu.hznu.weibo.Utils.HtmlFromUtils;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -35,6 +41,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class InfoAdapter extends ArrayAdapter<WeiBo> {
+    public static final  int TRANS_SUCCESS=1;
     public static final int SUCCESS=0;
     public static Gson gson=new Gson();
     private int resourceId;
@@ -56,6 +63,10 @@ public class InfoAdapter extends ArrayAdapter<WeiBo> {
         TextView create_time = (TextView) view.findViewById(R.id.time);
         TextView content = (TextView) view.findViewById(R.id.weibo_content);
         ImageView image = (ImageView) view.findViewById(R.id.weibo_img);
+        int transmit=weiBo.getTransmit();
+        TextView trans_name=(TextView) view.findViewById(R.id.trans_name);
+        TextView trans_content=(TextView) view.findViewById(R.id.trans_content);
+        ImageView trans_img=(ImageView) view.findViewById(R.id.trans_img);
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.placeholder(R.drawable.loading).override(1000, 500).fitCenter();
         if (!TextUtils.isEmpty(weiBo.getImg())) {
@@ -80,10 +91,31 @@ public class InfoAdapter extends ArrayAdapter<WeiBo> {
         } else {
             image.setVisibility(View.GONE);
         }
-
+        //转发内容
+        if(transmit!=0){
+            for(WeiBo weibo: WeiBoFragment.weiBoList){
+                if(weibo.getWid()==transmit){
+                    trans_name.setText("@"+weibo.getNickName());
+                    if (!TextUtils.isEmpty(weibo.getContent())) {
+                        HtmlFromUtils.setTextFromHtml((Activity) getContext(), trans_content, weibo.getContent());
+                    } else {
+                        trans_content.setVisibility(View.GONE);
+                    }
+                    if(!TextUtils.isEmpty(weiBo.getImage())){
+                        Glide.with(getContext()).load("http://10.0.2.2:8080/weibo/" + weibo.getImage())
+                                .apply(requestOptions)
+                                .into(trans_img);
+                    }else{
+                        trans_img.setVisibility(View.GONE);
+                    }
+                }
+            }
+        }else{
+            view.findViewById(R.id.trans_layout).setVisibility(View.GONE);
+        }
         ImageView transmitIcon = (ImageView) view.findViewById(R.id.transmit);
         transmitIcon.setOnClickListener(v -> {
-            System.out.println(weiBo.getWid());
+            showPopupMenu(transmitIcon,String.valueOf(weiBo.getWid()));
         });
         ImageView commentIcon = (ImageView) view.findViewById(R.id.comment);
         commentIcon.setOnClickListener(v -> {
@@ -157,6 +189,9 @@ public class InfoAdapter extends ArrayAdapter<WeiBo> {
                             collectIcon.setImageResource(R.drawable.collects);
                         }
                         break;
+                    case TRANS_SUCCESS:
+                        Toast.makeText(getContext(),"转发成功!",Toast.LENGTH_SHORT).show();
+                        break;
                 }
                 return  false;
             }
@@ -164,6 +199,63 @@ public class InfoAdapter extends ArrayAdapter<WeiBo> {
         return view;
     }
 
+    private void showPopupMenu(View view,String wid) {
+        // View当前PopupMenu显示的相对View的位置
+        PopupMenu popupMenu = new PopupMenu(getContext(), view);
+        // menu布局
+        popupMenu.getMenuInflater().inflate(R.menu.trans, popupMenu.getMenu());
+        // menu的item点击事件
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.quick_trans:
+                        sendTransRequest("quick_trans",wid);
+                        break;
+                    case R.id.trans:
+                        Intent intent=new Intent(getContext(),EditorActivity.class);
+                        intent.putExtra("oper","trans");
+                        intent.putExtra("name", HomeFragment.userInfo.getNickName());
+                        intent.putExtra("wid",wid);
+                        getContext().startActivity(intent);
+                        break;
+                }
+                return false;
+            }
+        });
+        // PopupMenu关闭事件
+        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+            @Override
+            public void onDismiss(PopupMenu menu) {
+//                Toast.makeText(getContext(), "关闭PopupMenu", Toast.LENGTH_SHORT).show();
+            }
+        });
+        popupMenu.show();
+    }
+    private void sendTransRequest(String oper,String wid){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    RequestBody requestBody = new FormBody.Builder().add("oper", oper)
+                            .add("wid",wid).build();
+                    Request request = new Request.Builder()
+                            .url("http://10.0.2.2:8080/weibo/deal")
+                            .post(requestBody)
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    Message msg=new Message();
+                    msg.what=TRANS_SUCCESS;
+                    handler.sendMessage(msg);
+//                    Log.d("oper", responseData);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
     private void favorOrCollectRequest(String oper,String wid){
         new Thread(new Runnable() {
             @Override

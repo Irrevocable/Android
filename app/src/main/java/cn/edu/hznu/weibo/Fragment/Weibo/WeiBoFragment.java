@@ -38,7 +38,7 @@ public class WeiBoFragment extends BaseFragment {
     public static final int QUERY_SUCCESS = 0;
     public static Gson gson = new Gson();
     private static final String TAG = "weibo";
-    private List<WeiBo> weiBoList = new ArrayList<>();//全部
+    public static List<WeiBo> weiBoList = new ArrayList<>();//全部
     private List<WeiBo> weiBos=new ArrayList<>();//部分
     private ListView listView;
     private SwipeRefreshLayout srfl;
