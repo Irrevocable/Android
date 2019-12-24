@@ -3,6 +3,7 @@ package cn.edu.hznu.weibo;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -101,7 +102,7 @@ public class InfoAdapter extends ArrayAdapter<WeiBo> {
                     } else {
                         trans_content.setVisibility(View.GONE);
                     }
-                    if(!TextUtils.isEmpty(weiBo.getImage())){
+                    if(!TextUtils.isEmpty(weibo.getImage())){
                         Glide.with(getContext()).load("http://10.0.2.2:8080/weibo/" + weibo.getImage())
                                 .apply(requestOptions)
                                 .into(trans_img);
@@ -124,6 +125,7 @@ public class InfoAdapter extends ArrayAdapter<WeiBo> {
         ImageView zanIcon = (ImageView) view.findViewById(R.id.zan);
         TextView favors = (TextView) view.findViewById(R.id.favorNum);
         if (Arrays.binarySearch(operation.getFavors(), weiBo.getWid()) >= 0) {
+            favors.setTextColor(Color.parseColor("#ef4d58"));
             zanIcon.setImageResource(R.drawable.zans);
         }
         if (weiBo.getFavors() == 0) {
@@ -135,17 +137,20 @@ public class InfoAdapter extends ArrayAdapter<WeiBo> {
             if (zanIcon.getDrawable() == null) {
                 favorOrCollectRequest("favors",String.valueOf(weiBo.getWid()));
                 zanIcon.setImageResource(R.drawable.zans);
+                favors.setTextColor(Color.parseColor("#ef4d58"));
                 favors.setText(String.valueOf(weiBo.getFavors()+1));
                 weiBo.setFavors(weiBo.getFavors()+1);
             } else {
                 if (zanIcon.getDrawable().getCurrent().getConstantState().equals(ContextCompat.getDrawable(getContext(), R.drawable.zan).getConstantState())) {
                     favorOrCollectRequest("favors",String.valueOf(weiBo.getWid()));
                     zanIcon.setImageResource(R.drawable.zans);
+                    favors.setTextColor(Color.parseColor("#ef4d58"));
                     favors.setText(String.valueOf(weiBo.getFavors()+1));
                     weiBo.setFavors(weiBo.getFavors()+1);
                 } else {
                     favorOrCollectRequest("favor",String.valueOf(weiBo.getWid()));
                     zanIcon.setImageResource(R.drawable.zan);
+                    favors.setTextColor(Color.parseColor("#333333"));
                     if(weiBo.getFavors()-1==0){
                         favors.setText("赞");
                         weiBo.setFavors(weiBo.getFavors()-1);
