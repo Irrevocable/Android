@@ -87,7 +87,11 @@ public class BottomDialog {
                     ActivityCompat.requestPermissions(activity, mPermissionList, 6);
                 }
                 //从相机获取图片
+//                String CROPIMAGEROOT = Environment.getExternalStorageDirectory() + "/weibo/";
+//                File mPictureFile = new File(CROPIMAGEROOT, "_" + System.currentTimeMillis() + ".jpg");
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mPictureFile));
+//                intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
                 activity.startActivityForResult(intent,1);
                 dialog.dismiss();
             }

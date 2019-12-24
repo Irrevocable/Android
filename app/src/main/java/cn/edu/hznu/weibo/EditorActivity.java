@@ -82,14 +82,17 @@ public class EditorActivity extends Activity implements View.OnClickListener {
                 if (contentRichEditText.getText().length() != 0) {
                     String content = contentRichEditText.getRichText();
                     if(content.indexOf("<img")!=-1){//只能解决单张图片
-                        content=content.substring(0,content.indexOf("<img"))+"<p>"+content.substring(content.indexOf("<img"),content.indexOf("/>")+2)+"</p>"+content.substring(content.indexOf("/>")+2);
+//                        content=content.substring(0,content.indexOf("<img"))+"<p>"+content.substring(content.indexOf("<img"),content.indexOf("/>")+2)+"</p>"+content.substring(content.indexOf("/>")+2);
+                        if(content.indexOf("<img")!=0){
+                            content=content.substring(0,content.indexOf("<img"))+"<p></p>"+content.substring(content.indexOf("<img"));
+                        }
                     }
                     content = content.replaceAll("/storage/emulated/0/Download", "img");
                     System.out.println(content);
                     if (TextUtils.isEmpty(getIntent().getStringExtra("oper"))) {
                         sendReleaseRequest(content);
                     } else {
-                        String wid=getIntent().getStringExtra("wid").toString();
+                        String wid=getIntent().getStringExtra("wid");
                         sendTransRequest(wid,content);
                     }
                 }

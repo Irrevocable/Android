@@ -3,9 +3,9 @@ package cn.edu.hznu.weibo;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -13,16 +13,17 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
+import com.yalantis.ucrop.UCrop;
+import com.yalantis.ucrop.UCropActivity;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import cn.edu.hznu.weibo.Bean.Operation;
 import cn.edu.hznu.weibo.Fragment.Home.HomeFragment;
@@ -167,70 +168,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case 1:
                 if (resultCode == RESULT_OK) {
                     final Bitmap photo = intent.getParcelableExtra("data");
-                    //给头像设置你相机拍的照片
-                    MineFragment mineFragment = (MineFragment) adapter.getItem(2);
-                    ImageView avatar = mineFragment.getView().findViewById(R.id.avatar);
-                    avatar.setImageBitmap(photo);
+                        //给头像设置你相机拍的照片
+                        MineFragment mineFragment = (MineFragment) adapter.getItem(2);
+                        ImageView avatar = mineFragment.getView().findViewById(R.id.avatar);
+                        avatar.setImageBitmap(photo);
                 }
                 break;
             case 2:
                 if (resultCode == RESULT_OK) {
                     assert intent != null;
                     Uri uri = intent.getData();
-                    cropPhoto(uri);//裁剪图片
+                    if(uri!=null){
+                        startUCrop(uri);
+                    }
                 }
                 break;
-            case 3:
-                Bundle bundle = intent.getExtras();
-
-                if (bundle != null) {
-                    //在这里获得了剪裁后的Bitmap对象，可以用于上传
-                    Bitmap image = bundle.getParcelable("data");
-                    //设置到ImageView上
-                    MineFragment mineFragment = (MineFragment) adapter.getItem(2);
-                    ImageView avatar = mineFragment.getView().findViewById(R.id.avatar);
-                    avatar.setImageBitmap(image);
-                    //也可以进行一些保存、压缩等操作后上传
-                    String path = saveImage("userHeader", image);
-                    File file = new File(path);
-                    //可以做上传文件操作
+            case UCrop.REQUEST_CROP: {
+                // 裁剪照片
+                final Uri croppedUri = UCrop.getOutput(intent);
+                try {
+                    if(croppedUri!=null) {
+                        Bitmap bit = BitmapFactory.decodeStream(getContentResolver().openInputStream(croppedUri));
+                        MineFragment mineFragment = (MineFragment) adapter.getItem(2);
+                        ImageView avatar = mineFragment.getView().findViewById(R.id.avatar);
+                        avatar.setImageBitmap(bit);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 break;
+            }
+            case UCrop.RESULT_ERROR: {
+                final Throwable cropError = UCrop.getError(intent);
+                Log.i("RESULT_ERROR","UCrop_RESULT_ERROR");
+                break;
+            }
         }
     }
 
-    private String saveImage(String name, Bitmap bmp) {
-        File appDir = new File(Environment.getExternalStorageDirectory().getPath());
-        if (!appDir.exists()) {
-            appDir.mkdir();
-        }
-        String fileName = name + ".jpg";
-        File file = new File(appDir, fileName);
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.flush();
-            fos.close();
-            return file.getAbsolutePath();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    private void startUCrop(Uri imageUri){
+        //裁剪后保存到文件中
+        Uri destinationUri = Uri.fromFile(new File(getCacheDir(), "myCroppedImage.jpg"));
+        UCrop uCrop = UCrop.of(imageUri, destinationUri);
+        UCrop.Options options = new UCrop.Options();
+        //设置裁剪图片可操作的手势
+        options.setAllowedGestures(UCropActivity.SCALE, UCropActivity.ROTATE, UCropActivity.ALL);
+        //设置toolbar颜色
+        options.setToolbarColor(ActivityCompat.getColor(this, R.color.orange));
+        //设置状态栏颜色
+        options.setStatusBarColor(ActivityCompat.getColor(this, R.color.orange));
+        //是否能调整裁剪框
+         options.setFreeStyleCropEnabled(true);
+        uCrop.withOptions(options);
+        uCrop.start(this);
     }
 
-    private void cropPhoto(Uri uri) {
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        intent.setDataAndType(uri, "image/*");
-        intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", 300);
-        intent.putExtra("outputY", 300);
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent, 3);
-    }
 
     private void sendQueryListsRequest() {
         new Thread(new Runnable() {
