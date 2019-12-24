@@ -26,7 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import cn.edu.hznu.weibo.Bean.Operation;
 import cn.edu.hznu.weibo.Fragment.Home.HomeFragment;
-import cn.edu.hznu.weibo.Fragment.Mine.IntroFragment;
+import cn.edu.hznu.weibo.Fragment.Home.IntroFragment;
 import cn.edu.hznu.weibo.Fragment.Mine.MineFragment;
 import cn.edu.hznu.weibo.Fragment.NoScrollViewPager;
 import cn.edu.hznu.weibo.Fragment.TabFragmentPagerAdapter;
@@ -175,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 2:
                 if (resultCode == RESULT_OK) {
+                    assert intent != null;
                     Uri uri = intent.getData();
                     cropPhoto(uri);//裁剪图片
                 }

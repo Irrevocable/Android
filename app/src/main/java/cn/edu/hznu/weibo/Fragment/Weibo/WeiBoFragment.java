@@ -16,7 +16,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -47,10 +46,6 @@ public class WeiBoFragment extends BaseFragment {
     private InfoAdapter adapter;
     private int total;
     private int index;
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -65,11 +60,22 @@ public class WeiBoFragment extends BaseFragment {
                         weiBoList = gson.fromJson(msg.getData().get("message").toString(), new TypeToken<List<WeiBo>>() {
                         }.getType());
                         total=weiBoList.size();
+                        weiBos.clear();
+                        //先查6个然后再根据滚动来
+                        if(weiBoList.size()!=0){
+                            for(int i=0;i<6;i++){
+                                index=i;
+                                weiBos.add(weiBoList.get(i));
+                            }
+                        }
+                        srfl.setRefreshing(false);
+                        adapter.notifyDataSetChanged();
                         break;
                     case -1:
-                        Collections.shuffle(weiBos);
-                        adapter.notifyDataSetChanged();
-                        srfl.setRefreshing(false);
+                        selectAllWeiBoRequest();
+//                        Collections.shuffle(weiBos);
+//                        adapter.notifyDataSetChanged();
+//                        srfl.setRefreshing(false);
                 }
                 return false;
             }
@@ -93,17 +99,10 @@ public class WeiBoFragment extends BaseFragment {
                 handler.sendEmptyMessageDelayed(-1,1000);
             }
         });
-
         listView = (ListView) super.findViewById(R.id.weibo_listView);
-        //先查6个然后再根据滚动来
-        if(weiBoList.size()!=0){
-            for(int i=0;i<6;i++){
-                index=i;
-                weiBos.add(weiBoList.get(i));
-            }
-        }
         adapter = new InfoAdapter(getContext(), R.layout.list_item, weiBos);
         listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {

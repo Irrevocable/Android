@@ -1,4 +1,4 @@
-package cn.edu.hznu.weibo.Fragment.Mine;
+package cn.edu.hznu.weibo.Fragment.Home;
 
 import android.graphics.Color;
 import android.os.Bundle;

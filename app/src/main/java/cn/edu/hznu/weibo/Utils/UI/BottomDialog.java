@@ -98,7 +98,8 @@ public class BottomDialog {
             public void onClick(View view) {
                 //从相册获取图片
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                photoPickerIntent.setType("image/*");
+                photoPickerIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+//                photoPickerIntent.setType("image/*");
                 activity.startActivityForResult(photoPickerIntent,2);
                 dialog.dismiss();
 

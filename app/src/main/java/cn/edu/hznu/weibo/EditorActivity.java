@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -29,6 +30,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 
 import androidx.annotation.NonNull;
@@ -43,9 +45,11 @@ import okhttp3.Response;
 
 @SuppressLint("HandlerLeak")
 public class EditorActivity extends Activity implements View.OnClickListener {
-    public static final int RELEASE_SUCCESS=0;
+    public  static final  int TRANS_SUCCESS=1;
+    public static final int RELEASE_SUCCESS = 0;
     private TextView cancel;
     private TextView name;
+    private TextView title;
     private Button send;
     private Handler handler;
 
@@ -77,12 +81,47 @@ public class EditorActivity extends Activity implements View.OnClickListener {
             case R.id.send_btn:
                 if (contentRichEditText.getText().length() != 0) {
                     String content = contentRichEditText.getRichText();
-                    content=content.replaceAll("/storage/emulated/0/Download","img");
+                    if(content.indexOf("<img")!=-1){//只能解决单张图片
+                        content=content.substring(0,content.indexOf("<img"))+"<p>"+content.substring(content.indexOf("<img"),content.indexOf("/>")+2)+"</p>"+content.substring(content.indexOf("/>")+2);
+                    }
+                    content = content.replaceAll("/storage/emulated/0/Download", "img");
                     System.out.println(content);
-                    sendReleaseRequest(content);
+                    if (TextUtils.isEmpty(getIntent().getStringExtra("oper"))) {
+                        sendReleaseRequest(content);
+                    } else {
+                        String wid=getIntent().getStringExtra("wid").toString();
+                        sendTransRequest(wid,content);
+                    }
                 }
                 break;
         }
+    }
+
+    private void sendTransRequest(String wid, String content) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    RequestBody requestBody = new FormBody.Builder().add("oper", "trans")
+                            .add("wid", wid)
+                            .add("content",content)
+                            .build();
+                    Request request = new Request.Builder()
+                            .url("http://10.0.2.2:8080/weibo/deal")
+                            .post(requestBody)
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    Message msg = new Message();
+                    msg.what = TRANS_SUCCESS;
+                    handler.sendMessage(msg);
+//                    Log.d("oper", responseData);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     private void sendReleaseRequest(String content) {
@@ -171,18 +210,29 @@ public class EditorActivity extends Activity implements View.OnClickListener {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         cancel = (TextView) findViewById(R.id.cancel);
         cancel.setOnClickListener(this);
-        name=(TextView)findViewById(R.id.username);
+        name = (TextView) findViewById(R.id.username);
         name.setText(getIntent().getStringExtra("name"));
+        title = (TextView) findViewById(R.id.edit_title);
+        if (!TextUtils.isEmpty(getIntent().getStringExtra("oper"))) {
+            title.setText("转发微博");
+            contentRichEditText.setHint("说说分享心得...");
+        }
         send = (Button) findViewById(R.id.send_btn);
         send.setOnClickListener(EditorActivity.this);
-        handler=new Handler(new Handler.Callback() {
+        handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
-                switch (msg.what){
+                switch (msg.what) {
                     case RELEASE_SUCCESS:
-                        Toast toast=Toast.makeText(EditorActivity.this,"发布成功!",Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER,0,0);
-                        toast.show();
+                        Toast release_toast = Toast.makeText(EditorActivity.this, "发布成功!", Toast.LENGTH_SHORT);
+                        release_toast.setGravity(Gravity.CENTER, 0, 0);
+                        release_toast.show();
+                        finish();
+                        break;
+                    case TRANS_SUCCESS:
+                        Toast trans_toast = Toast.makeText(EditorActivity.this, "转发成功!", Toast.LENGTH_SHORT);
+                        trans_toast.setGravity(Gravity.CENTER, 0, 0);
+                        trans_toast.show();
                         finish();
                         break;
                 }
